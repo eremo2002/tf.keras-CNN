@@ -46,13 +46,12 @@ class Pointwise_bn_relu(tf.keras.Model):
         return x
 
 
+    
 
 
-
-
-class MyMobilenetV1(tf.keras.Model):
+class MobilenetV1(tf.keras.Model):
     def __init__(self, nb_class):
-        super(MyMobilenetV1, self).__init__()
+        super(MobilenetV1, self).__init__()
 
         self.nb_class = nb_class
         self.zero_pad = tf.keras.layers.ZeroPadding2D((2, 2))
@@ -145,6 +144,6 @@ class MyMobilenetV1(tf.keras.Model):
     
 
 
-model = MyMobilenetV1(1000)
+model = MobilenetV1(1000)
 model.build((1, 224, 224, 3))
 model.summary()
