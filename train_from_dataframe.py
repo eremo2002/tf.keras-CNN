@@ -40,7 +40,7 @@ test_datagen = ImageDataGenerator(
 
 train_generator = train_datagen.flow_from_dataframe(
         dataframe=train_df,
-        directory='data/faces_images',
+        directory='data/',
         x_col="filename",
         y_col="label",
         target_size=img_size,
@@ -49,7 +49,7 @@ train_generator = train_datagen.flow_from_dataframe(
 
 validation_generator = test_datagen.flow_from_dataframe(
         dataframe=valid_df,
-        directory='data/faces_images',
+        directory='data/',
         x_col="filename",
         y_col="label",
         target_size=img_size,
