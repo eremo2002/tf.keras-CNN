@@ -60,7 +60,10 @@ validation_generator = test_datagen.flow_from_dataframe(
 
 
 
-model = MyMobilenetV1(6)
+# model = MobilenetV1(1000)
+# model = VGG16(1000)
+model = ResNet50(1000)
+
 model.build((batch_size, 128, 128, 3))
 model.summary()
 model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=1e-4), metrics=['acc'])
@@ -76,7 +79,7 @@ checkpoint = ModelCheckpoint(filepath='./weight/epoch-{epoch:04d}-acc_{acc:.4f}-
 
 history = model.fit_generator(generator=train_generator,
                                 steps_per_epoch=int(train_generator.n / train_generator.batch_size),
-                                epochs=2000, 
+                                epochs=epochs, 
                                 validation_data=validation_generator,
                                 validation_steps=int(validation_generator.n / validation_generator.batch_size),
                                 verbose=1, shuffle=True, callbacks=[checkpoint])
