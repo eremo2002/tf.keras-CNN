@@ -1,6 +1,4 @@
 import tensorflow as tf
-import numpy as np
-
 
 class SepConv(tf.keras.Model):
     def __init__(self, in_channels, out_channels):
