@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+
 class SepConv(tf.keras.Model):
     def __init__(self, in_channels, out_channels):
         super(SepConv, self).__init__()
@@ -204,21 +205,13 @@ class MnasNet(tf.keras.Model):
 
     def call(self, input_tensor, training=False):
         x = self.conv_1(input_tensor)
-        print(x.shape)
         x = self.SepConv_2(x)
-        print(x.shape)
         x = self.MBConv_3(x)
-        print(x.shape)
         x = self.MBConv_SE_4(x)
-        print(x.shape)
         x = self.MBConv_5(x)
-        print(x.shape)
         x = self.MBConv_SE_6(x)
-        print(x.shape)
         x = self.MBConv_SE_7(x)
-        print(x.shape)
         x = self.MBConv_8(x)
-        print(x.shape)
         x = self.pool(x)
         x = self.fc(x)
 
