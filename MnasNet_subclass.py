@@ -53,9 +53,10 @@ class MBConv_SE(tf.keras.Model):
                                                         padding='same')
         self.bn2 = tf.keras.layers.BatchNormalization()
         self.relu2 = tf.keras.layers.ReLU()
-
+ 
 
         self.se_gap3 = tf.keras.layers.GlobalAveragePooling2D()
+        self.reshape3 = tf.keras.layers.Reshape(1, 1, self.in_channels*self.expansion)
         self.se_fc3_1 = tf.keras.layers.Dense((self.in_channels*self.expansion)//4)
         self.se_relu3 = tf.keras.layers.ReLU()
         self.se_fc3_2 = tf.keras.layers.Dense((self.in_channels*self.expansion), activation='sigmoid')
@@ -81,7 +82,8 @@ class MBConv_SE(tf.keras.Model):
         x = self.relu2(x)
 
         x_se_input = self.se_gap3(x)
-        x_se = self.se_fc3_1(x_se_input)
+        x_se = self.reshape3(x_se_input)
+        x_se = self.se_fc3_1(x_se)
         x_se = self.se_relu3(x_se)
         x_se = self.se_fc3_2(x_se)
         x_se = self.multiply3([x_se, x])
